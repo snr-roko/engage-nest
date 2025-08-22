@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-enum CustomerStatus {
+export enum CustomerStatus {
   ACTIVE = 'active',
   INACTIVE = 'inactive',
   PROSPECT = 'prospect'
