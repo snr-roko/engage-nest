@@ -1,4 +1,4 @@
-import { Entity, OneToOne, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, OneToOne, PrimaryGeneratedColumn, Column, JoinColumn } from "typeorm";
 import { User } from "./user.entity";
 
 export enum Gender {
@@ -23,7 +23,7 @@ export class Profile {
   @Column({nullable: true})
   dateOfbirth?: Date
 
-  @Column({type: 'enum', enum: Gender})
+  @Column({type: 'enum', enum: Gender, nullable: true})
   gender?: Gender
 
 }
