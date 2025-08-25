@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import { Profile } from "./profile.entity";
 
 @Entity()
 export class User {
@@ -28,6 +29,10 @@ export class User {
 
   @Column()
   region: string
+
+  @OneToOne(() => Profile, (profile) => profile.user, {cascade: true})
+  @JoinColumn()
+  profile: Profile
 
   // to add role and password
 }
