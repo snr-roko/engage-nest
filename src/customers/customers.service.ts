@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Customer } from 'src/entities/customer.entity';
 import { Repository } from 'typeorm';
 import { CreateCustomerDto } from './dto/createCustomer.dto';
+import { UpdateCustomerDto } from './dto/updateCustomer.dto';
 
 @Injectable()
 export class CustomersService {
@@ -29,4 +30,34 @@ export class CustomersService {
   async getAllCustomers() {
     return await this.customerRepository.find()
   }
+
+  async updateCustomer(id: number, customerDetails: UpdateCustomerDto) {
+
+    const customerToUpdate = await this.customerRepository.findOne({
+      where: {
+        id
+      }
+    })
+
+    if (!customerToUpdate) throw new NotFoundException("Customer Not Found")
+
+    return this.customerRepository.update(id, customerDetails)
+  }
+
+  async deleteCustomer(id: number) {
+
+    const customerToDelete = await this.customerRepository.findOne({
+      where: {
+        id
+      }
+    })
+
+    if (!customerToDelete) throw new NotFoundException("Customer Not Found")
+    
+    return await this.customerRepository.delete({
+      id
+    })
+
+  }
+
 }
