@@ -8,8 +8,8 @@ export class ProfilesController {
 
   }
 
-  @Get(':id')
-  getProfile(@Param('id', ParseUUIDPipe) id: string) {
-    return this.profileService.getProfile(id)
+  @Get(':userId')
+  getProfile(@Param('userId', ParseUUIDPipe) userId: string) {
+    return this.profileService.getProfile(userId)
   }
 }
