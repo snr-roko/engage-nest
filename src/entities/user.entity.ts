@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToMany} from "typeorm";
 import { Profile } from "./profile.entity";
+import { CustomerInteraction } from "./interaction.entity";
+
+export enum Role {
+  ADMIN = 'admin',
+  SALESREP = 'salesRep',
+  SALESMANAGER = 'salesManager'
+}
 
 @Entity()
 export class User {
@@ -34,5 +41,19 @@ export class User {
   @JoinColumn()
   profile: Profile
 
-  // to add role and password
+  // @Column({type: 'enum', enum: Role})
+  // role: Role
+
+  // @Column()
+  // password: string
+
+  @OneToMany(() => CustomerInteraction, (customerInteraction) => customerInteraction.salesRep)
+  customerInteractions: CustomerInteraction[]
+
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
+
 }

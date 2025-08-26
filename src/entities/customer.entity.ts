@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CustomerInteraction } from "./interaction.entity";
 
 export enum CustomerStatus {
   ACTIVE = 'active',
@@ -40,6 +41,9 @@ export class Customer {
 
   @Column()
   region: string
+
+  @OneToMany(() => CustomerInteraction, (interaction) => interaction.customer)
+  interactions: CustomerInteraction[]
 
   @CreateDateColumn()
   createdAt: Date
