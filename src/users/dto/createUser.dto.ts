@@ -50,4 +50,11 @@ export class createUserDto {
     message: "Region is required"
   })
   region: string
+
+  @IsString()
+  @IsNotEmpty({
+    message: "Password is required"
+  })
+  password: string
+
 }
