@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/createCustomer.dto';
 import { UpdateCustomerDto } from './dto/updateCustomer.dto';
+import { PaginationDto } from 'src/shared/pagination.dto';
 
 @Controller('customers')
 export class CustomersController {
@@ -19,8 +20,8 @@ export class CustomersController {
   }
 
   @Get()
-  getAllCustomers() {
-    return this.customerService.getAllCustomers()
+  getAllCustomers(@Query() pagination: PaginationDto) {
+    return this.customerService.getAllCustomers(pagination)
   }
 
   @Patch(':id')

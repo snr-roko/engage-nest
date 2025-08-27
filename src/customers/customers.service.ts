@@ -4,6 +4,8 @@ import { Customer } from 'src/entities/customer.entity';
 import { Repository } from 'typeorm';
 import { CreateCustomerDto } from './dto/createCustomer.dto';
 import { UpdateCustomerDto } from './dto/updateCustomer.dto';
+import { PaginationDto } from 'src/shared/pagination.dto';
+import { DEFAULT_PAGINATION_LIMIT } from '../utils/constants';
 
 @Injectable()
 export class CustomersService {
@@ -27,8 +29,14 @@ export class CustomersService {
     return customer
   }
 
-  async getAllCustomers() {
-    return await this.customerRepository.find()
+  async getAllCustomers(pagination: PaginationDto) {
+    return await this.customerRepository.find({
+      skip: pagination.offset,
+      take: pagination.limit ?? DEFAULT_PAGINATION_LIMIT,
+      order: {
+        firstName: "ASC"
+      }
+    })
   }
 
   async updateCustomer(id: number, customerDetails: UpdateCustomerDto) {
