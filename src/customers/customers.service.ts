@@ -4,7 +4,7 @@ import { Customer } from 'src/entities/customer.entity';
 import { Repository } from 'typeorm';
 import { CreateCustomerDto } from './dto/createCustomer.dto';
 import { UpdateCustomerDto } from './dto/updateCustomer.dto';
-import { PaginationDto } from 'src/shared/pagination.dto';
+import { PaginationDto } from 'src/shared/pagination/pagination.dto';
 import { DEFAULT_PAGINATION_LIMIT } from '../utils/constants';
 
 @Injectable()

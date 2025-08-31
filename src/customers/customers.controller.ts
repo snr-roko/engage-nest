@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query 
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/createCustomer.dto';
 import { UpdateCustomerDto } from './dto/updateCustomer.dto';
-import { PaginationDto } from 'src/shared/pagination.dto';
+import { PaginationDto } from 'src/shared/pagination/pagination.dto';
 
 @Controller('customers')
 export class CustomersController {
