@@ -17,11 +17,15 @@ export class AuthService {
 
         if(!isPasswordMatched) throw new UnauthorizedException("Invalid credentials")
 
-        return user.id
+        const tokenPayload: JwtPayload = {
+            sub: user.id,
+            role: user.role
+        }
+
+        return tokenPayload
     }
 
-    async createToken(userId: string) {
-        const payload: JwtPayload = {sub: userId}
+    async createToken(payload: JwtPayload) {
         return await this.jwtService.signAsync(payload)
     }
 }

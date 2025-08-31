@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { JwtPayload } from 'src/shared/interfaces/jwt-payload';
 
 @Controller('auth')
 export class AuthController {
@@ -9,10 +10,14 @@ export class AuthController {
 
   @Post('login')
   async loginUser(@Body() userData: LoginDto) {
-    const userId = await this.authService.validateUser(userData.email, userData.password)
+    const tokenPayload: JwtPayload = await this.authService.validateUser(userData.email, userData.password)
 
-    const token = await this.authService.createToken(userId)
+    const token = await this.authService.createToken(tokenPayload)
 
-    return {userId, token}
+    return {
+      id: tokenPayload.sub,
+      role: tokenPayload.role,
+      token: token
+    }
   }
 }
