@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { createUserDto } from './dto/createUser.dto';
 import { JwtAuthGuard } from 'src/auth/auth.guard';
@@ -12,16 +12,14 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Roles(Role.ADMIN, Role.SALESMANAGER)
-  @UseGuards(RoleGuard)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RoleGuard)
   @Post('sales-rep')
   registerSalesRep(@Body() newUser: createUserDto) {
     return this.userService.createSalesRep(newUser)
   }
 
   @Roles(Role.ADMIN)
-  @UseGuards(RoleGuard)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RoleGuard)
   @Post('sales-manager')
   registerSalesManager(@Body() newUser: createUserDto) {
     return this.userService.createSalesManager(newUser)
