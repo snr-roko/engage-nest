@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entities/user.entity';
+import { Role, User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { createUserDto } from './dto/createUser.dto';
 import { Profile } from 'src/entities/profile.entity';
@@ -13,7 +13,7 @@ export class UsersService {
     @InjectRepository(Profile) private profileRepository: Repository<Profile>
 ) {}
 
-  async createUser(newUser: createUserDto) {
+  async createSalesRep(newUser: createUserDto) {
     const userProfile = this.profileRepository.create()
 
     const user = this.userRepository.create({
@@ -22,6 +22,16 @@ export class UsersService {
     })
 
     return await this.userRepository.save(user)
+  }
+
+  async createSalesManager(newUser: createUserDto) {
+    const userProfile = this.profileRepository.create()
+
+    const user = this.userRepository.create({
+      ...newUser,
+      role: Role.SALESMANAGER,
+      profile: userProfile
+    })
   }
 
   async findUserByEmail(email: string) {
