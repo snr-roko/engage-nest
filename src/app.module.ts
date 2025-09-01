@@ -7,10 +7,11 @@ import { dbConfig } from 'dbConfig';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { AuthModule } from './auth/auth.module';
+import { CustomerInteractionsModule } from './customer-interactions/customer-interactions.module';
 
 
 @Module({
-  imports: [CustomersModule, TypeOrmModule.forRoot(dbConfig), UsersModule, ProfilesModule, AuthModule],
+  imports: [CustomersModule, TypeOrmModule.forRoot(dbConfig), UsersModule, ProfilesModule, AuthModule, CustomerInteractionsModule],
   controllers: [AppController],
   providers: [AppService],
 })
